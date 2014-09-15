@@ -18,5 +18,5 @@ The code base includes major contributions from existing projects
 * The theory underlying this code is explained in Wang, R., Martin, F.L. and Roth, F. (2003) Computation of deformation induced by earthquakes in a multi-layered elastic crust -- FORTRAN programs EDGRN/EDCMP. Computers and Geosciences 29: 195-2007
 
 
-[DC3D]: http://www.bosai.go.jp/study/application/dc3d/DC3Dhtml_E.html
-[EDGRNEDCMP]: ftp://ftp.gfz-potsdam.de/pub/home/turk/wang/edgrn+edcmp-code+input.zip
+[DC3D]:http://www.bosai.go.jp/study/application/dc3d/DC3Dhtml_E.html
+[EDGRNEDCMP]:ftp://ftp.gfz-potsdam.de/pub/home/turk/wang/edgrn+edcmp-code+input.zip
