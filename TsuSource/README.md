@@ -14,9 +14,9 @@ The code base includes major contributions from existing projects
 * The theory underlying this code is explained in Okada, Y. (1992) Internal Deformation Due to Shear and Tensile Faults in a Half-Space. Bulletin of the Siesmological Society of America, 82:1018-1040
 
 ##### EDGRN
-* We include the fortran 77 sources of the [EDGRNEDCMP] programs by Rogjiang Wang, Francisco Lorenzo Martin, and Frank Roth, and greatfully acknowledge their permission to include the code in this project
+* We include the fortran 77 sources of the [EDGRN EDCMP] programs by Rogjiang Wang, Francisco Lorenzo Martin, and Frank Roth, and greatfully acknowledge their permission to include the code in this project
 * The theory underlying this code is explained in Wang, R., Martin, F.L. and Roth, F. (2003) Computation of deformation induced by earthquakes in a multi-layered elastic crust -- FORTRAN programs EDGRN/EDCMP. Computers and Geosciences 29: 195-2007
 
 
-[DC3D]:http://www.bosai.go.jp/study/application/dc3d/DC3Dhtml_E.html
-[EDGRNEDCMP]:ftp://ftp.gfz-potsdam.de/pub/home/turk/wang/edgrn+edcmp-code+input.zip
+[DC3D]: http://www.bosai.go.jp/study/application/dc3d/DC3Dhtml_E.html
+[EDGRN EDCMP]: http://www.gfz-potsdam.de/en/research/organizational-units/departments/department-2/physics-of-earthquakes-and-volcanoes/services/downloads-software/
