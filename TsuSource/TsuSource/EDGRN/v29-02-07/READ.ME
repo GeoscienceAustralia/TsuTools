@@ -1,0 +1,138 @@
+
+   1. INTRODUCTION
+   ===============
+
+   The present software is used to calculate earthquakes' static deformations
+based on the dislocation theory. The medium, i.e. the earth is considered as an
+isotropic and elastic continuum which consists of an arbitrary but finite
+number of laterally homogeneous layers with a stress free surface on top and the
+homogeneous deepest layer extending to infinite depth, which entails that no
+waves are emerging this deepest layer. A special case of the model is the
+homogeneous half-space.
+
+   An earthquake is represented by a few rectangular fault planes with
+horizontal upper and lower boundaries. The fault planes are defined by their
+slip and by their geometrical parameters, that is, the length and width, the
+strike, dip and rake angles, as well as the Cartesian coordinates of the upper
+reference point on the surface trace in the strike direction.
+
+                   N
+                  /
+                 /| strike
+         Ref:-> @------------------------
+                |\        p .            \ W
+                :-\      i .              \ i
+                |  \    l .                \ d
+                :90 \  S .                  \ t
+                |-dip\  .                    \ h
+                :     \. | rake               \ 
+                Z      -------------------------
+                              L e n g t h
+
+   The observables to be computed include the 3 displacement components, the 6
+strain/stress components, and the 2 vertical tilt components. The observation
+points can be a regular or irregular 2D array or a regular 1D profile at a fixed
+uniform depth.
+
+   In general, the Green's function approach is applied to the numerical
+computations. The computation is made in two steps. First, the fundamental
+Green's functions are computed by the program "EDGRN" for the given 2D source-
+observation point combinations which are dense enough to  cover individual
+source-observation configurations to be considered later. Then, the program
+"EDCMP" discretizes the finite rectangles to a number of discrete point
+double-couple sources, and computes the deformation fields by means of the
+linear superposition (convolution integration).
+
+   In the special case of the homogeneous half-space model, the program "EDCMP"
+provides optionally the results using the analytical method of Okada (1992)
+for which Green's functions are not required.
+
+   For more details about the theoretical background please see Wang (1999),
+Wang and Kuempel (2001) and Wang et al. (2002).
+
+   2. COMPILATIONS
+   ===============
+
+  Before compiling the programs, please check whether the array sizes declared
+in the include files "./edgrnf77/edgglobal.h" and "./edcmpf77/edcglobal.h" are
+large enough for user applications. The following example shows how to obtain
+the executable programs "edgrn" and "edcmp" on computers with the unix system:
+Put this READ.ME and the input file samples in a directory of your choice, and
+the source files in edgrnf77 and edcmpf77 for edgrn and edcmp, respectively.
+
+Then
+
+   ~> cd edgrnf77-2.0
+   ~> make
+   ~> mv edgrn ..
+   ~> cd ..
+
+   ~> cd edcmpf77-2.0
+   ~> make
+   ~> mv edcmp ..
+   ~> cd ..
+
+   ~> mkdir edgrnfcts
+   ~> mkdir edcmpdata
+
+   Note that "edgrnfcts" and "edcmpdata" are directories which will be used for
+the present example to store the Green's functions and the output data,
+respectively.
+
+   3. INPUT DATA
+   =============
+
+   Input parameters for the programs "EDGRN" and "EDCMP" will be read from the
+input data files. Users can modify the provided example ("edgrn.inp" for
+"EDGRN" and "edcmp.inp" for "EDCMP", both with sufficient comments) for their
+own applications.
+
+   4. COMPUTATION EFFORT
+   =====================
+   In general, the computation time of the program "EDGRN" increases about
+linearly with (1) the number of layers of the earth model and (2) the number of
+the source-observation combinations. For the program "EDCMP", the computation
+time increases with (1) the number of the discrete point sources and (2) the
+number of the observation points.
+
+In the present example, the deformation field of the 1999 Izmit earthquake,
+Turkey, are calculated using both a homogeneous half-space and a 4-layers crust
+model. The fault plane consists of 6 rectangular segments and has a total length
+of about 140 km. Its depth extends from the surface to 20 km. The Green's
+functions are computed for 401 distances (every 0.5 km from 0 to 200 km) and for
+43 source depths (every 0.5 km from 0 to 21 km), that is, 401 X 43 = 17243
+source-observation combinations. The CPU time of the program "EDGRN" on a SUN
+Ultra-60 Workstation is 72 sec to 77 sec, depending on whether a homogeneous or
+a 4-layers model is used.
+
+The surface displacements are computed for 1D profile with 201 stations. The CPU
+time of the program "EDCMP" on the same SUN workstation is 16 sec.
+
+   5. CONTACTS
+   ===========
+
+   For problems and suggestions please send e-mails to the authors: Rongjiang
+Wang (wang@gfz-potsdam.de), Frank Roth (roth@gfz-potsdam.de), and Francisco
+Lorenzo (lorenzo@gfz-potsdam.de).
+
+   6. REFERENCES
+   =============
+
+   Okada, Y., Internal deformation due to shear and tensile faults in a
+half-space, Bull. Seis. Soc. Am., 82, 1018-1040, 1992.
+
+   Wang, R., A simple orthonormalization method for the stable and efficient
+computation of Green's functions, Bull. Seism. Soc. Am., 89, 733-741, 1999.
+
+   Wang, R., and Kuempel, H.-J., Poroelasticity: axisymmetric solutions for the
+uniform and the layered half-space, Geophysics, 2001 (submitted).
+
+   Wang, R., Lorenzo, F., and Roth, F., Computation of deformation induced by
+earthquakes in a multi-layered elastic crust -- FORTRAN programs EDGRN/EDCMP,
+Computers & Geosciences, 2002 (submitted).
+
+================================================================================
+Text written by R. Wang, GeoForschungsZentrum Potsdam, Feb 2002
+
+
+
