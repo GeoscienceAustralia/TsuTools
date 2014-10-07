@@ -15,7 +15,9 @@ The computations proceed as:
 * The 'bathtub-stage' is then set to zero where 'elevation > dilated stage'. ``` This approach will not respect 'topographic barriers', so all elevation cells < nearest stage will be filled ```
 * The 'bathtub depth' is computed from the bathtub stage + input elevation
 
-*It assumes the standard gdal commandline tools are available via system calls*
+Dependencies: 
+-------------
+We assume the standard gdal commandline tools are available via system calls
 
 Getting started:
 ----------------
