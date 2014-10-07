@@ -5,7 +5,7 @@ This is a commandline script to make a basic 'bathtub' inundation map from input
 
 For us, the purpose is to compute 'bathtub' inundation maps from tsunami models, based only on the computed 'ocean' stage. 
 
-The maps set the stage in each cell based on their nearest 'ocean' raster value. ``` This approach will not respect 'topographic barriers' -- all elevation cells < nearest stage will be filled ```
+The algorithm sets the stage in each cell based on its nearest 'ocean' raster value. ``` This approach will not respect 'topographic barriers' -- all elevation cells < nearest stage will be filled ```
 
 Bathtub maps are a useful reference case for comparison with inundation maps based on hydrodynamic models, as while the latter can be more accurate, they can also be affected by errors due to e.g. mesh resolution, friction definition, onshore elevation data, etc.
 

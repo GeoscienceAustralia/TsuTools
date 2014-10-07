@@ -10,8 +10,8 @@ class Test_bathtub(unittest.TestCase):
         pass
 
     def test_example_usage(self):
-        """
-            Check we can run example_usage without errors
+        """Check we can run example_usage without errors
+
         """
         cmd = 'python example_usage.py'
         import os

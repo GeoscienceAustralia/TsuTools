@@ -51,12 +51,6 @@ def make_bathtub_maps(stage_raster_file,
     except:
         pass
 
-    ###########################################################################
-    #
-    # Make a raster mask which is 1.0 inside the ocean_polygon
-    #
-    ###########################################################################
-
     # Preliminary filename definition / creation
     raw_stage_copy = os.path.join(output_dir, 'raw_stage_copy.tif')
     raw_elevation_copy = os.path.join(output_dir, 'raw_elevation_copy.tif')
@@ -95,16 +89,15 @@ def make_bathtub_maps(stage_raster_file,
 
     shutil.copyfile(raw_stage_copy, stage_clipped)
 
-    # Fill the clipped_stage file
-    fill_stage_cmd = 'gdal_fillnodata.py ' +\
+    # Dilate the clipped_stage file
+    dilate_stage_cmd = 'gdal_fillnodata.py ' +\
                      '-md ' + str(int(fill_max_iterations)) + ' ' +\
                      stage_clipped + ' -mask ' + poly_mask
     if not quiet:
-        print fill_stage_cmd
-    os.system(fill_stage_cmd)
+        print dilate_stage_cmd
+    os.system(dilate_stage_cmd)
 
     # Compute the 'wet-area' for stage/depth calculations
-    # Will be NA whenever B or A = NA, 0 if B>=A, 1 if A>B
     wet_area_cmd = 'gdal_calc.py ' + ' -A ' + stage_clipped +\
                    ' -B ' + elevation_raster_file + ' --calc="(B<A)"' +\
                    ' --outfile ' + wet_area
@@ -112,26 +105,25 @@ def make_bathtub_maps(stage_raster_file,
         print wet_area_cmd
     os.system(wet_area_cmd)
 
-    # Clip the filled stage based on the wet-area
-    # Takes the value of stage when stage > elevation, otherwise
-    # takes the value of elevation
-    clip_stage_cmd = 'gdal_calc.py ' + ' -A ' + stage_clipped +\
+    # Set the filled stage
+    filled_stage_cmd = 'gdal_calc.py ' + ' -A ' + stage_clipped +\
                      ' -B ' + wet_area +\
                      ' -C ' + elevation_raster_file +\
                      ' --calc="A*(B==1) + C*(B!=1) "' +\
                      ' --outfile ' + stage_flood_filled
     if not quiet:
-        print clip_stage_cmd
-    os.system(clip_stage_cmd)
+        print filled_stage_cmd
+    os.system(filled_stage_cmd)
 
-    # Convert to depth -- will be NA wherever stage was NA
-    depth_cmd = 'gdal_calc.py ' + ' -A ' + stage_flood_filled +\
+    # Convert to depth
+    filled_depth_cmd = 'gdal_calc.py ' + ' -A ' + stage_flood_filled +\
                 ' -B ' + elevation_raster_file +\
-                ' -C ' + wet_area + ' --calc="(A-B)*(C==1) + 0.*( (C==0)+(C!=C))"' +\
+                ' -C ' + wet_area +\
+                ' --calc="(A-B)*(C==1) + 0.*( (C==0)+(C!=C))"' +\
                 ' --outfile ' + depth_flood_filled
     if not quiet:
-        print depth_cmd
-    os.system(depth_cmd)
+        print filled_depth_cmd
+    os.system(filled_depth_cmd)
 
     if not keep_temp_files:
         for filename in temp_files:
