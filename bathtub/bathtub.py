@@ -18,9 +18,7 @@ def make_bathtub_maps(stage_raster_file,
                       verbose=True,
                       fill_max_iterations=2000,
                       clean_temp_files=True):
-    """
-
-    Make a 'bathtub' flood map using input stage & elevation rasters +
+    """Make a 'bathtub' flood map using input stage & elevation rasters +
     an 'ocean polygon'
 
     The computations proceed as:
@@ -33,6 +31,23 @@ def make_bathtub_maps(stage_raster_file,
     4) The 'bathtub depth' is computed from the bathtub stage + input elevation
 
     It assumes the gdal commandline tools are available via system calls
+
+    @param stage_raster_file
+        Filename of raster with stage values
+    @param elevation_raster_file
+        Filename of raster with elevation values
+    @param ocean_polygon_file
+        Polygon shapefile. Stage is clipped to this before dilating.
+        For tsunami applications it would typically cover ocean areas
+    @param output_dir
+        Location for output files. Created if necessary.
+    @param fill_max_iterations
+        The clipped data is flood-filled by at most this many pixels.
+        Increase for large rasters
+    @param clean_temp_files
+        Clean up temporary files
+    @param verbose
+        Print commands passed to os.system
 
     """
 
