@@ -19,5 +19,6 @@ tsusrc
 (tsunami-source) Codes to generate the initial conditions for tsunami models based on earthquake source information
 
 
-
-
+bathtub 
+--------
+Command line utility for making bathtub inundation maps
