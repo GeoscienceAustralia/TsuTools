@@ -1,4 +1,4 @@
-bathtub_fill
+bathtub
 ============
 
 This is a commandline script to make a basic 'bathtub' inundation map from input stage and elevation raster data, and a polygon shapefile defining the extent of the 'ocean' stages which are dilated to 'fill' the other areas.
@@ -21,7 +21,7 @@ Getting started:
 ----------------
 Run
 
-    python bathtub_fill.py
+    python bathtub.py
 to see the command-line help, and also look at the example in *example_usage.py*
 
     python example_usage.py
