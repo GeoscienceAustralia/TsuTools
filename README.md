@@ -14,9 +14,9 @@ But by all means add new subdirectories, and edit this README
 The projects are :
 ==================
 
-TsuSource
+tsusrc
 ---------
-Codes to generate the initial conditions for tsunami models based on earthquake source information
+(tsunami-source) Codes to generate the initial conditions for tsunami models based on earthquake source information
 
 
 
