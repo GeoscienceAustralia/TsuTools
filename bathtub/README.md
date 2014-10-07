@@ -32,4 +32,4 @@ Bugs:
 ----
 Please use github pull requests to contribute bug fixes. Alternatively email Gareth Davies, grothered ( at gmail dot com)
 
-* gdal_calc.py seems to introduce occasional nodata values where there were none before in any input files -- even when no obvious mathematical problem exists to create them. 
+* ```Fixed (apparently) but cause remains unclear``` gdal_calc.py seems to introduce occasional nodata values where there were none before in any input files -- even when no obvious mathematical problem exists to create them. 
