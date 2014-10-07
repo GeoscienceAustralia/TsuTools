@@ -21,15 +21,6 @@ def make_bathtub_maps(stage_raster_file,
     """Make a 'bathtub' flood map using input stage & elevation rasters +
     an 'ocean polygon'
 
-    The computations proceed as:
-    1) The stage is first 'masked' to the 'ocean polygon'.
-    2) gdal_fillnodata.py is used to expand (dilate) the stage raster values,
-       making the 'bathtub stage'.
-    3) The 'bathtub-stage' is then set to zero when 'elevation > dilated stage.
-       This approach will not respect 'topographic barriers', so all elevation
-       cells < nearest stage will be filled
-    4) The 'bathtub depth' is computed from the bathtub stage + input elevation
-
     It assumes the gdal commandline tools are available via system calls
 
     @param stage_raster_file
@@ -68,67 +59,52 @@ def make_bathtub_maps(stage_raster_file,
 
     # Preliminary filename definition / creation
     raw_stage_copy = os.path.join(output_dir, 'raw_stage_copy.tif')
+    raw_elevation_copy = os.path.join(output_dir, 'raw_elevation_copy.tif')
     poly_mask = os.path.join(output_dir, 'poly_mask.tif')
-    poly_mask_0nodata = os.path.join(output_dir, 'poly_mask_0nodata.tif')
     stage_clipped = os.path.join(output_dir, 'stage_clipped.tif')
     wet_area = os.path.join(output_dir, 'wet_area.tif')
-    stage_flood_filled_clipped = os.path.join(
-        output_dir, 'stage_flood_filled_clipped.tif')
-    depth_flood_filled_clipped = os.path.join(
-        output_dir, 'depth_flood_filled_clipped.tif')
+    stage_flood_filled = os.path.join(
+        output_dir, 'stage_flood_filled.tif')
+    depth_flood_filled = os.path.join(
+        output_dir, 'depth_flood_filled.tif')
 
-    temp_files = [raw_stage_copy, poly_mask, stage_clipped]
+    temp_files = [raw_stage_copy, raw_elevation_copy, 
+                  poly_mask, stage_clipped, wet_area]
 
     shutil.copyfile(stage_raster_file, raw_stage_copy)
-    shutil.copyfile(stage_raster_file, poly_mask)
+    shutil.copyfile(elevation_raster_file, raw_elevation_copy)
+    
 
-    # Make a 'zero' raster with the same extent as the stage raster
-    zero_raster_cmd = 'gdal_calc.py ' + '-A ' + raw_stage_copy +\
-                      ' --calc=A*0.' +\
-                      ' --outfile=' + poly_mask + ' --NoDataValue=0.0'
+    # Make a 'zero' raster with the same extent as the input rasters
+    # Use various tricks to make NA values also 0.0
+    zero_raster_cmd = 'gdal_calc.py ' + '-A ' + elevation_raster_file +\
+                      ' --calc="((A==A) + (A!=A))*0.0"' +\
+                      ' --outfile=' + poly_mask
     if not quiet:
         print zero_raster_cmd
     os.system(zero_raster_cmd)
-
-    # Convert mask nodata values to zero
-    zero_nodata_cmd = 'gdalwarp -srcnodata 0 -dstnodata 0 ' +\
-                      poly_mask + ' ' + poly_mask_0nodata
-    if not quiet:
-        print zero_nodata_cmd
-    os.system(zero_nodata_cmd)
-    ## Skip this
-    #poly_mask_0nodata = poly_mask
-    
 
     # Make a 1/0 mask defining the ocean_polygon as a raster
     polygon_burnin_cmd = 'gdal_rasterize ' + ' -at ' + ' -l ' +\
                          ocean_polygon_file_layername +\
                          ' -burn 1.0 ' +\
-                         ocean_polygon_file + ' ' + poly_mask_0nodata
+                         ocean_polygon_file + ' ' + poly_mask
     if not quiet:
         print polygon_burnin_cmd
     os.system(polygon_burnin_cmd)
 
-    # Make the 'clipped stage' file
-    clip_stage_cmd = 'gdal_calc.py ' +\
-                     ' -A ' + raw_stage_copy +\
-                     ' -B ' + poly_mask_0nodata + ' --calc=A*B ' +\
-                     ' --outfile ' + stage_clipped
-    if not quiet:
-        print clip_stage_cmd
-    os.system(clip_stage_cmd)
+    shutil.copyfile(raw_stage_copy, stage_clipped)
 
     # Fill the clipped_stage file
     fill_stage_cmd = 'gdal_fillnodata.py ' +\
                      '-md ' + str(int(fill_max_iterations)) + ' ' +\
-                     stage_clipped + ' -mask ' + poly_mask_0nodata
+                     stage_clipped + ' -mask ' + poly_mask
     if not quiet:
         print fill_stage_cmd
     os.system(fill_stage_cmd)
 
     # Compute the 'wet-area' for stage/depth calculations
-    # Doing this separately from the final 2 computations seems to remove 
-    # minor NaN artefacts which otherwise appear there
+    # Will be NA whenever B or A = NA, 0 if B>=A, 1 if A>B
     wet_area_cmd = 'gdal_calc.py ' + ' -A ' + stage_clipped +\
                    ' -B ' + elevation_raster_file + ' --calc="(B<A)"' +\
                    ' --outfile ' + wet_area
@@ -136,20 +112,23 @@ def make_bathtub_maps(stage_raster_file,
         print wet_area_cmd
     os.system(wet_area_cmd)
 
-    # Clip the filled stage based on the elevation
+    # Clip the filled stage based on the wet-area
+    # Takes the value of stage when stage > elevation, otherwise
+    # takes the value of elevation
     clip_stage_cmd = 'gdal_calc.py ' + ' -A ' + stage_clipped +\
-                     ' -B ' + elevation_raster_file +\
-                     ' -C ' + wet_area + ' --calc="A*C"' +\
-                     ' --outfile ' + stage_flood_filled_clipped
+                     ' -B ' + wet_area +\
+                     ' -C ' + elevation_raster_file +\
+                     ' --calc="A*(B==1) + C*(B!=1) "' +\
+                     ' --outfile ' + stage_flood_filled
     if not quiet:
         print clip_stage_cmd
     os.system(clip_stage_cmd)
 
-    # Convert to depth
-    depth_cmd = 'gdal_calc.py ' + ' -A ' + stage_flood_filled_clipped +\
+    # Convert to depth -- will be NA wherever stage was NA
+    depth_cmd = 'gdal_calc.py ' + ' -A ' + stage_flood_filled +\
                 ' -B ' + elevation_raster_file +\
-                ' -C ' + wet_area + ' --calc="(A-B)*C"' +\
-                ' --outfile ' + depth_flood_filled_clipped
+                ' -C ' + wet_area + ' --calc="(A-B)*(C==1) + 0.*( (C==0)+(C!=C))"' +\
+                ' --outfile ' + depth_flood_filled
     if not quiet:
         print depth_cmd
     os.system(depth_cmd)
@@ -166,7 +145,8 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(
         description='Make bathtub inundation rasters by clipping stage to a' +
-                    ' polygon area, and then dilating the clipped raster')
+                    ' polygon area, and then dilating the clipped raster.' +
+                    ' Creates bathtub stage and bathtub depth rasters')
     parser.add_argument('-stage_raster_file', type=str, default=None,
                         help='Filename of raster with stage values')
     parser.add_argument('-elevation_raster_file', type=str, default=None,
