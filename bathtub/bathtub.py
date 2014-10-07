@@ -182,20 +182,23 @@ if __name__ == '__main__':
                         help='The clipped data is flood-filled by at most ' +
                              'this many pixels. Increase for large rasters')
     parser.add_argument('-keep_temp_files', action='store_true', default=False,
-                        help='Clean up temporary files')
+                        help=" Don't clean up temporary files")
     parser.add_argument('-quiet', action='store_true', default=False,
-                        help='Print commands passed to os.system')
+                        help="Don't Print commands passed to os.system")
 
     args = parser.parse_args()
-    
-    ocean_polygon_file_layername = os.path.splitext(os.path.basename(
-        args.ocean_polygon_file))[0]
+   
+    try: 
+        ocean_polygon_file_layername = os.path.splitext(os.path.basename(
+            args.ocean_polygon_file))[0]
 
-    make_bathtub_maps(args.stage_raster_file,
-                      args.elevation_raster_file,
-                      args.ocean_polygon_file,
-                      ocean_polygon_file_layername,
-                      args.output_dir,
-                      args.quiet,
-                      args.fill_max_iterations,
-                      args.keep_temp_files)
+        make_bathtub_maps(args.stage_raster_file,
+                          args.elevation_raster_file,
+                          args.ocean_polygon_file,
+                          ocean_polygon_file_layername,
+                          args.output_dir,
+                          args.quiet,
+                          args.fill_max_iterations,
+                          args.keep_temp_files)
+    except:
+        parser.print_help()
