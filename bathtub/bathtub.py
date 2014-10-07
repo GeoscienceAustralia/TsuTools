@@ -1,5 +1,14 @@
+"""
+
+Authors: Gareth Davies, Geoscience Australia, 2014
+         ...
+         ...
+
+"""
+
 import os
 import shutil
+
 
 def make_bathtub_maps(stage_raster_file,
                       elevation_raster_file,
@@ -11,19 +20,19 @@ def make_bathtub_maps(stage_raster_file,
                       clean_temp_files=True):
     """
 
-    Make a 'bathtub' flood map using input stage & elevation rasters + 
+    Make a 'bathtub' flood map using input stage & elevation rasters +
     an 'ocean polygon'
 
     The computations proceed as:
     1) The stage is first 'masked' to the 'ocean polygon'.
     2) gdal_fillnodata.py is used to expand (dilate) the stage raster values,
        making the 'bathtub stage'.
-    3) The 'bathtub-stage' is then set to zero where 'elevation > dilated stage'.
+    3) The 'bathtub-stage' is then set to zero when 'elevation > dilated stage.
        This approach will not respect 'topographic barriers', so all elevation
        cells < nearest stage will be filled
     4) The 'bathtub depth' is computed from the bathtub stage + input elevation
 
-    It assumes the standard gdal commandline tools are available via system calls
+    It assumes the gdal commandline tools are available via system calls
 
     """
 
@@ -114,21 +123,21 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(
-        description='Make bathtub inundation rasters by clipping stage to a' +\
+        description='Make bathtub inundation rasters by clipping stage to a' +
                     ' polygon area, and then dilating the clipped raster')
-    parser.add_argument('-stage_raster_file', type=str, default = None,
+    parser.add_argument('-stage_raster_file', type=str, default=None,
                         help='Filename of raster with stage values')
     parser.add_argument('-elevation_raster_file', type=str, default=None,
                         help='Filename of raster with elevation values')
-    parser.add_argument('-ocean_polygon_file', type=str, default=None, 
-                        help='Polygon shapefile. Stage is clipped to this ' +\
-                        ' before dilating. For tsunami applications it' +\
+    parser.add_argument('-ocean_polygon_file', type=str, default=None,
+                        help='Polygon shapefile. Stage is clipped to this ' +
+                        ' before dilating. For tsunami applications it' +
                         ' would typically cover ocean areas')
     parser.add_argument(
         '-output_dir', type=str, default='./bathtub_outputs',
         help='Location for output files. Created if necessary.')
     parser.add_argument('-fill_max_iterations', type=int, default=2000,
-                        help='The clipped data is flood-filled by at most ' +\
+                        help='The clipped data is flood-filled by at most ' +
                              'this many pixels. Increase for large rasters')
     parser.add_argument('-clean_temp_files', type=bool, default=True,
                         help='Clean up temporary files')
@@ -148,4 +157,3 @@ if __name__ == '__main__':
                       args.verbose,
                       args.fill_max_iterations,
                       args.clean_temp_files)
-

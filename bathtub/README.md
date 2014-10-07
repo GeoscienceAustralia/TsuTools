@@ -6,7 +6,7 @@ This is a commandline script to make a basic 'bathtub' inundation map from input
 For us, the purpose is to compute 'bathtub' inundation maps from tsunami models, based only on the
 computed 'ocean' stage. 
 
-Bathtub maps are a useful reference case for comparison with detailed inundation maps, as while the latter can be more accurate, they can also be affected by errors due to e.g. mesh resolution, friction definition, onshore elevation data, etc.
+Bathtub maps are a useful reference case for comparison with inundation maps based on hydrodynamic models, as while the latter can be more accurate, they can also be affected by errors due to e.g. mesh resolution, friction definition, onshore elevation data, etc.
 
 The computations proceed as:
 ----------------------------
@@ -25,3 +25,8 @@ Run
 to see the command-line help, and also look at the example in *example_usage.py*
 
     python example_usage.py
+
+Bugs:
+----
+Please use github pull requests to contribute bug fixes. Alternatively email Gareth Davies, grothered ( at gmail dot com)
+
