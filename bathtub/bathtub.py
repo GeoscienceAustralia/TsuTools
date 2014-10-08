@@ -8,6 +8,78 @@ Authors: Gareth Davies, Geoscience Australia, 2014
 
 import os
 import shutil
+import numpy
+import gdal
+import struct
+
+
+def raster_values_at_points(xy, raster_file, band=1):
+    """Get raster values at point locations.
+
+        INPUT:
+        xy = numpy array with point locations
+        raster_file = Filename of the gdal-compatible raster
+        band = band of the raster to get
+
+        OUTPUT:
+        1d numpy array with raster values at xy
+
+        This is based on a similar routine
+        in ANUGA, also authored by Gareth Davies 2014
+    """
+
+    # Raster info
+    raster = gdal.Open(raster_file)
+    raster_band = raster.GetRasterBand(band)
+    raster_band_type = gdal.GetDataTypeName(raster_band.DataType)
+
+    # Projection info
+    transform = raster.GetGeoTransform()
+    x_origin = transform[0]
+    y_origin = transform[3]
+    pixel_width = transform[1]
+    pixel_height = transform[5]  # Negative
+
+    # Get coordinates in pixel values
+    px = ((xy[:, 0] - x_origin) / pixel_width).astype(int)  # x
+    py = ((xy[:, 1] - y_origin) / pixel_height).astype(int)  # y
+
+    # Store pixel values
+    raster_values = px * 0.
+
+    # Get the right character for struct.unpack
+    if (raster_band_type == 'Int16'):
+        CtypeName = 'h'
+    elif (raster_band_type == 'Float32'):
+        CtypeName = 'f'
+    elif (raster_band_type == 'Byte'):
+        CtypeName = 'B'
+    else:
+        print 'unrecognized DataType:', gdal.GetDataTypeName(band.DataType)
+        print 'You might need to edit this code to read the data type'
+        raise Exception('Stopping')
+
+    # Upper bounds for pixel values, so we can fail gracefully
+    xMax = raster.RasterXSize
+    yMax = raster.RasterYSize
+    if(px.max() < xMax and px.min() >= 0 and
+       py.max() < yMax and py.min() >= 0):
+        pass
+    else:
+        msg = 'Trying to extract point values that exceed the raster extent'
+        raise Exception(msg)
+
+    # Get values -- seems we have to loop, but it is efficient enough
+    for i in range(len(px)):
+        xc = int(px[i])
+        yc = int(py[i])
+        structval = raster_band.ReadRaster(
+            xc, yc, 1, 1, buf_type=raster_band.DataType)
+        raster_values[i] = struct.unpack(CtypeName, structval)[0]
+
+    return raster_values
+
+###############################################################################
 
 
 def make_bathtub_maps(stage_raster_file,
@@ -62,12 +134,11 @@ def make_bathtub_maps(stage_raster_file,
     depth_flood_filled = os.path.join(
         output_dir, 'depth_flood_filled.tif')
 
-    temp_files = [raw_stage_copy, raw_elevation_copy, 
+    temp_files = [raw_stage_copy, raw_elevation_copy,
                   poly_mask, stage_clipped, wet_area]
 
     shutil.copyfile(stage_raster_file, raw_stage_copy)
     shutil.copyfile(elevation_raster_file, raw_elevation_copy)
-    
 
     # Make a 'zero' raster with the same extent as the input rasters
     # Use various tricks to make NA values also 0.0
@@ -91,8 +162,8 @@ def make_bathtub_maps(stage_raster_file,
 
     # Dilate the clipped_stage file
     dilate_stage_cmd = 'gdal_fillnodata.py ' +\
-                     '-md ' + str(int(fill_max_iterations)) + ' ' +\
-                     stage_clipped + ' -mask ' + poly_mask
+        '-md ' + str(int(fill_max_iterations)) + ' ' +\
+        stage_clipped + ' -mask ' + poly_mask
     if not quiet:
         print dilate_stage_cmd
     os.system(dilate_stage_cmd)
@@ -107,20 +178,20 @@ def make_bathtub_maps(stage_raster_file,
 
     # Set the filled stage
     filled_stage_cmd = 'gdal_calc.py ' + ' -A ' + stage_clipped +\
-                     ' -B ' + wet_area +\
-                     ' -C ' + elevation_raster_file +\
-                     ' --calc="A*(B==1) + C*(B!=1) "' +\
-                     ' --outfile ' + stage_flood_filled
+        ' -B ' + wet_area +\
+        ' -C ' + elevation_raster_file +\
+        ' --calc="A*(B==1) + C*(B!=1) "' +\
+        ' --outfile ' + stage_flood_filled
     if not quiet:
         print filled_stage_cmd
     os.system(filled_stage_cmd)
 
     # Convert to depth
     filled_depth_cmd = 'gdal_calc.py ' + ' -A ' + stage_flood_filled +\
-                ' -B ' + elevation_raster_file +\
-                ' -C ' + wet_area +\
-                ' --calc="(A-B)*(C==1) + 0.*( (C==0)+(C!=C))"' +\
-                ' --outfile ' + depth_flood_filled
+        ' -B ' + elevation_raster_file +\
+        ' -C ' + wet_area +\
+        ' --calc="(A-B)*(C==1) + 0.*( (C==0)+(C!=C))"' +\
+        ' --outfile ' + depth_flood_filled
     if not quiet:
         print filled_depth_cmd
     os.system(filled_depth_cmd)
@@ -159,8 +230,8 @@ if __name__ == '__main__':
                         help="Don't Print commands passed to os.system")
 
     args = parser.parse_args()
-   
-    try: 
+
+    try:
         ocean_polygon_file_layername = os.path.splitext(os.path.basename(
             args.ocean_polygon_file))[0]
 
