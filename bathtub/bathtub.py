@@ -49,11 +49,13 @@ def raster_values_at_points(xy, raster_file, band=1):
 
     # Get the right character for struct.unpack
     if (raster_band_type == 'Int16'):
-        CtypeName = 'h'
+        ctype_name = 'h'
     elif (raster_band_type == 'Float32'):
-        CtypeName = 'f'
+        ctype_name = 'f'
     elif (raster_band_type == 'Byte'):
-        CtypeName = 'B'
+        ctype_name = 'B'
+    elif (raster_band_type == 'Int32'):
+        ctype_name = 'i'
     else:
         print 'unrecognized DataType:', gdal.GetDataTypeName(band.DataType)
         print 'You might need to edit this code to read the data type'
@@ -75,7 +77,13 @@ def raster_values_at_points(xy, raster_file, band=1):
         yc = int(py[i])
         structval = raster_band.ReadRaster(
             xc, yc, 1, 1, buf_type=raster_band.DataType)
-        raster_values[i] = struct.unpack(CtypeName, structval)[0]
+        raster_values[i] = struct.unpack(ctype_name, structval)[0]
+
+    # Deal with nodata
+    nodataval = raster_band.GetNoDataValue()
+    missing = (raster_values == nodataval).nonzero()[0]
+    if len(missing) > 0:
+        raster_values[missing] = numpy.nan
 
     return raster_values
 
