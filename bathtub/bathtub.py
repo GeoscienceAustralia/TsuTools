@@ -13,13 +13,21 @@ import gdal
 import struct
 
 
-def raster_values_at_points(xy, raster_file, band=1):
+def raster_values_at_points(xy, raster_file, band=1, nodata_rel_tol=1.0e-08):
     """Get raster values at point locations.
 
         INPUT:
-        xy = numpy array with point locations
-        raster_file = Filename of the gdal-compatible raster
-        band = band of the raster to get
+        @param xy = numpy array with point locations
+        @param raster_file = Filename of the gdal-compatible raster
+        @param band = band of the raster to get
+        @param nodata_rel_tol = raster pixels are interpreted as nodata if
+
+            abs(raster_values - nodataval) < nodata_rel_tol*abs(nodataval)  
+
+            This approach can compensate for minor rounding errors in
+            stored nodata values or nodata pixel values, which I've seen
+            a few times. But it could also cause 'real' values to be
+            set to nodata if they were extremely close to the nodata value
 
         OUTPUT:
         1d numpy array with raster values at xy
@@ -81,7 +89,8 @@ def raster_values_at_points(xy, raster_file, band=1):
 
     # Deal with nodata
     nodataval = raster_band.GetNoDataValue()
-    missing = (raster_values == nodataval).nonzero()[0]
+    rel_tol = ( abs(raster_values - nodataval) < nodata_rel_tol*abs(nodataval) ) 
+    missing = rel_tol.nonzero()[0]
     if len(missing) > 0:
         raster_values[missing] = numpy.nan
 
