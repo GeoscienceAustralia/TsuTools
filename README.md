@@ -22,3 +22,14 @@ tsusrc
 bathtub 
 --------
 Command line utility for making bathtub inundation maps
+
+
+scaling
+--------
+Code for various earthquake scaling relations
+
+
+shapefile2nrml
+---------------
+Code to produce openquake nrml files from shapefiles
+
