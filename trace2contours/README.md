@@ -7,5 +7,7 @@ useage
 ------
 
 See
+
     Rscript trace2contours.R --help
+
 for usage information

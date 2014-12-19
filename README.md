@@ -33,3 +33,6 @@ shapefile2nrml
 ---------------
 Code to produce openquake nrml files from shapefiles
 
+trace2contours
+---------------
+Code to convert a fault trace shapefile to fault contours
