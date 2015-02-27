@@ -16,7 +16,7 @@ The projects are :
 
 tsusrc
 ---------
-(tsunami-source) Codes to generate the initial conditions for tsunami models based on earthquake source information
+(tsunami-source) Codes to generate the initial conditions for tsunami models based on earthquake or submarine mass failure source information
 
 
 bathtub 
@@ -36,3 +36,7 @@ Code to produce openquake nrml files from shapefiles
 trace2contours
 ---------------
 Code to convert a fault trace shapefile to fault contours
+
+utilities
+--------------
+Generic snippets of code, such as loggin
