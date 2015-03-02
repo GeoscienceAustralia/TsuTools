@@ -7,7 +7,16 @@ February 2015
 """
 
 import numpy
-from TsuTools.geospatial_utils import make_gdal_grid
+import TsuTools.utilities.geospatial_utils
+
+# Check that GDAL interface is installed on import
+try:
+    import gdal
+    import osr
+except ImportError, e:
+    msg='Failed to import gdal/ogr modules --'\
+    + 'perhaps gdal python interface is not installed.'
+    raise ImportError, msg
 
 def create_grid(xmin, xmax, ymin, ymax, 
                 dx, dy):#, projection=None):
@@ -137,7 +146,7 @@ def function2raster(func, filepath=None, gridx=None, gridy=None,
                                                             gridx=gridx,
                                                             gridy=gridy)
                                     
-    make_gdal_grid(z, x, y, filepath, format=format,
+    geospatial_utils.make_gdal_grid(z, x, y, filepath, format=format,
                    EPSG_code = EPSG_code, proj4string=proj4string,
                    creation_options=[], gdal_datatype=gdal.GDT_Float32)
 
