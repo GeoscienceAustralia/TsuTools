@@ -41,8 +41,8 @@ def create_grid(xmin, xmax, ymin, ymax,
 #        Geographic projection if using projected coordinates
     """
 
-    x = numpy.arrange(xmin, xmax, dx)
-    y = numpy.arrange(ymin, ymax, dy)
+    x = numpy.arange(xmin, xmax, dx)
+    y = numpy.arange(ymin, ymax, dy)
     xx, yy = numpy.meshgrid(x,y)
     
     return x, y, xx, yy
@@ -81,6 +81,9 @@ def evaluate_function_over_grid(func,
 
     if gridx is None and gridy is None:
         x, y, gridx, gridy = create_grid(xmin, xmax, ymin, ymax, dx, dy)
+    else:
+        x = gridx[0,:]
+        y = gridy[:,0]
     
     z = func(gridx, gridy)
     return x, y, gridx, gridy, z
@@ -91,7 +94,8 @@ def function2raster(func, filepath=None, gridx=None, gridy=None,
                     EPSG_code=None, proj4string=None, 
                     creation_options=[], 
                     gdal_datatype=gdal.GDT_Float32):
-    """Takes a function, evaluates it over an x,y range and creates
+    """
+    Takes a function, evaluates it over an x,y range and creates
     a raster of the result using the GDAL tools. Can either take
     x, y coordinates for a grid (gridx, gridy) or just the range of the axes
     (xmin, xmax, ymin, ymax, dx, dy).
