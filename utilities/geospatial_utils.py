@@ -20,7 +20,7 @@ except ImportError, e:
     raise ImportError, msg
 
 
-def make_grid(data, lons, lats, filename, format='GTiff', 
+def make_gdal_grid(data, lons, lats, filepath, format='GTiff', 
               EPSG_code=None, proj4string=None, 
               creation_options=[], gdal_datatype=gdal.GDT_Float32):
     """
@@ -34,6 +34,8 @@ def make_grid(data, lons, lats, filename, format='GTiff',
         1D array of longitude or x values
     :param lats:
         1D array of latitude or y values
+    :param filepath:
+        Path to output raster including file extension
     :param format:
         GDAL raster format code. See 
         http://www.gdal.org/formats_list.html for codes
