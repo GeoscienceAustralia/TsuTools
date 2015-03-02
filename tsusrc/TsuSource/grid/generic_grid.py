@@ -39,7 +39,7 @@ def create_grid(xmin, xmax, ymin, ymax,
     return x, y, xx, yy
 
 def evaluate_function_over_grid(func,
-                                gridx=None, gridy=None
+                                gridx=None, gridy=None,
                                 xmin=None, xmax=None,
                                 ymin=None, ymax=None,
                                 dx=None, dy=None):
@@ -76,8 +76,8 @@ def evaluate_function_over_grid(func,
     z = func(gridx, gridy)
     return x, y, gridx, gridy, z
 
-def function2raster(func, filepath=None, gridx=None, gridy=None
-                    xmin=None, xmax=None,ymin=None, ymax=None,
+def function2raster(func, filepath=None, gridx=None, gridy=None,
+                    xmin=None, xmax=None, ymin=None, ymax=None,
                     dx=None, dy=None, format='GTiff',
                     EPSG_code=None, proj4string=None, 
                     creation_options=[], 
