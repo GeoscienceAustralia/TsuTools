@@ -5,10 +5,7 @@ Geoscience Australia
 March 2015
 """
 
-#import scipy.io
-#import scipy.interpolate
-#import scipy.spatial
-#import os
+import numpy
 
 # Check that GDAL interface is installed on import
 try:
@@ -66,7 +63,7 @@ def make_gdal_grid(data, lons, lats, filepath, format='GTiff',
 
     # GDAL magic to make the tif
     driver = gdal.GetDriverByName(format)
-    ds = driver.Create(filename, xsize, ysize, 1, gdal_datatype, 
+    ds = driver.Create(filepath, xsize, ysize, 1, gdal_datatype, 
                        creation_options)
 
     # Check projection information has been supplied correctly

@@ -7,7 +7,7 @@ February 2015
 """
 
 import numpy
-import TsuTools.utilities.geospatial_utils
+from TsuTools.utilities import geospatial_utils
 
 # Check that GDAL interface is installed on import
 try:
@@ -19,7 +19,7 @@ except ImportError, e:
     raise ImportError, msg
 
 def create_grid(xmin, xmax, ymin, ymax, 
-                dx, dy):#, projection=None):
+                dx, dy):
     """
     Create a grid of points for evaluating a function
 
@@ -136,7 +136,7 @@ def function2raster(func, filepath=None, gridx=None, gridy=None,
     """
 
     if filepath is None:
-        filepath='raster'
+        filepath='raster.tif'
     
     if gridx is None and gridy is None:
         x, y, gridx, gridy, z = evaluate_function_over_grid(func, 
