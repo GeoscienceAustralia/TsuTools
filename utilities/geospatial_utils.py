@@ -11,10 +11,39 @@ import numpy
 try:
     import gdal
     import osr
+    import ogr
 except ImportError, e:
     msg='Failed to import gdal/ogr modules --'\
     + 'perhaps gdal python interface is not installed.'
     raise ImportError, msg
+
+def reproject_point(s_EPSG, t_EPSG, point):
+    """
+    Function to reproject an individual point into another
+    coordinate system. 
+    Returns reproject x and y coordinates for the point
+
+    :param s_EPSG:
+        EPSG code for source reference system
+        See http://spatialreference.org/ref/epsg/
+    :param t_EPSG:
+        EPSG code for target reference system
+        See http://spatialreference.org/ref/epsg/
+    :param point:
+        List [x,y] of point to be reprojected
+    """
+
+    # Create gdal transform object to convert between coordinates systems
+    geog = osr.SpatialReference()
+    geog.ImportFromEPSG(s_EPSG)
+    proj = osr.SpatialReference()
+    proj.ImportFromEPSG(t_EPSG)
+    transform = osr.CoordinateTransformation(geog, proj)
+    point = ogr.CreateGeometryFromWkt("POINT (%.10f %.10f)" % \
+                                          (point[0], point[1]))
+    point.Transform(transform)
+    point_coords = list(point.GetPoint_2D())
+    return point_coords[0], point_coords[1]
 
 
 def make_gdal_grid(data, lons, lats, filepath, format='GTiff', 
