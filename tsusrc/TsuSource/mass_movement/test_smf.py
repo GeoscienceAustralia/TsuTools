@@ -104,6 +104,8 @@ class Test_smf(unittest.TestCase):
         if anuga_installed:
             pass
         else:
+            print 'Note: test_slide_tsunami_domain not tested as ANUGA '\
+                'is not installed'
             return
         length = 600.0
         dep = 150.0
