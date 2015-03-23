@@ -84,7 +84,7 @@ def evaluate_function_over_grid(func,
     else:
         x = gridx[0,:]
         y = gridy[:,0]
-    
+
     z = func(gridx, gridy)
     return x, y, gridx, gridy, z
 
@@ -149,7 +149,6 @@ def function2raster(func, filepath=None, gridx=None, gridy=None,
         x, y, gridx, gridy, z = evaluate_function_over_grid(func, 
                                                             gridx=gridx,
                                                             gridy=gridy)
-                                    
     geospatial_utils.make_gdal_grid(z, x, y, filepath, format=format,
                    EPSG_code = EPSG_code, proj4string=proj4string,
                    creation_options=[], gdal_datatype=gdal.GDT_Float32)
