@@ -89,6 +89,9 @@ def make_gdal_grid(data, lons, lats, filepath, format='GTiff',
     # and compute upper left coordinate
     ulx = lons[0] - (xres / 2.)
     uly = lats[lats.shape[0]-1] + (yres / 2.)
+    # Need to flip data as writes from top left to bottom right, but
+    # data starts from bottom left to top right.
+    data = numpy.flipud(data)
 
     # GDAL magic to make the tif
     driver = gdal.GetDriverByName(format)
