@@ -6,7 +6,7 @@ February 2015
 
 import os, sys, errno
 import numpy
-import strasser2010
+from TsuTools.scaling import strasser2010
 from subprocess import call
 
 def nearest_point(point, points):
