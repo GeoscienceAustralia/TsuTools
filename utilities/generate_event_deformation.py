@@ -7,6 +7,7 @@ February 2015
 import os, sys, errno
 import numpy
 from TsuTools.scaling import strasser2010
+from TsuTools.utilities import plot_deformation
 from subprocess import call
 
 def nearest_point(point, points):
@@ -165,7 +166,7 @@ def create_event(source_zone, magnitude,
         print cmd
         call(cmd, shell=True)
     # Now scale grids by slip and put in a directory for events
-    event_dir = 'events'
+    event_dir = source_zone + '/events'
     try:
         os.makedirs(event_dir)
     except OSError as exc:
@@ -189,9 +190,10 @@ def create_event(source_zone, magnitude,
     ##########################################
     # Now plot the deformation
     #########################################
-    cmd = 'python plot_deformation.py %s' % event_grd_path
-    print cmd
-    call(cmd, shell=True)
+    plot_deformation.plot_deformation(event_grd_path)
+#    cmd = 'python plot_deformation.py %s' % event_grd_path
+#    print cmd
+#    call(cmd, shell=True)
 
 if __name__ == "__main__":
     
