@@ -65,17 +65,17 @@ class Test_strasser2010(unittest.TestCase):
             assert numpy.allclose(test_data['sigma_area_plusone'][i], \
                                       sigma_area_plusone, rtol=1.e-9), msg
 
-            msg = 'Expected value of %.10f, got %.10f for length + 1 sigma for \
+            msg = 'Expected value of %.10f, got %.10f for length - 1 sigma for \
                    magnitude %.1f' % (test_data['sigma_length_minusone'][i], \
                                           sigma_length_minusone, magnitude)
             assert numpy.allclose(test_data['sigma_length_minusone'][i], \
                                       sigma_length_minusone, rtol=1.e-9), msg
-            msg = 'Expected value of %.10f, got %.10f for width + 1 sigma for \
+            msg = 'Expected value of %.10f, got %.10f for width - 1 sigma for \
                    magnitude %.1f' % (test_data['sigma_width_plusone'][i], \
                                           sigma_width_minusone, magnitude)
             assert numpy.allclose(test_data['sigma_width_minusone'][i], \
                                       sigma_width_minusone, rtol=1.e-9), msg
-            msg = 'Expected value of %.10f, got %.10f for area + 1 sigma for \
+            msg = 'Expected value of %.10f, got %.10f for area - 1 sigma for \
                    magnitude %.1f' % (test_data['sigma_area_minusone'][i], \
                                           sigma_area_minusone, magnitude)
             assert numpy.allclose(test_data['sigma_area_minusone'][i], \
@@ -89,41 +89,94 @@ class Test_strasser2010(unittest.TestCase):
 
         test_length_data = {'length': [50.0, 160., 700.0],
                             'magnitude': [7.2329662460, 7.9361350159, 
-                                          8.8283764717]}
+                                          8.8283764717],
+                            'magnitude_plusone_sigma': [7.509966246,
+                                                        8.213135016,
+                                                        9.105376472],
+                            'magnitude_minusone_sigma': [6.955966246,
+                                                         7.659135016,
+                                                         8.551376472]}
         test_width_data = {'width': [40.0, 80.0, 200.0],
                            'magnitude': [7.3017182843, 7.8450774265, 
-                                         8.5633591422]}
+                                         8.5633591422],
+                           'magnitude_plusone_sigma': [7.693718284,
+                                                       8.237077427,
+                                                       8.955359142],
+                           'magnitude_minusone_sigma': [6.909718284,
+                                                        7.453077427,
+                                                        8.171359142]}
         test_area_data = {'area': [1500.0, 14000.0, 150000.0],
                           'magnitude': [7.1279732052, 7.9486243182, 
-                                        8.8199732052]}
+                                        8.8199732052],
+                          'magnitude_plusone_sigma': [7.413973205,
+                                                      8.234624318,
+                                                      9.105973205],
+                          'magnitude_minusone_sigma': [6.841973205,
+                                                       7.662624318,
+                                                       8.533973205]}
         i = 0
         for length in test_length_data['length']:
-            magnitude = calculate_magnitude('length', length)
+            magnitude,magnitude_plusone_sigma, magnitude_minusone_sigma \
+                = calculate_magnitude('length', length)
             msg = 'Expected magnitude value of %.10f, got %.10f for \
                    length %.1f' % (test_length_data['magnitude'][i], magnitude,
                                    length)
             assert numpy.allclose(test_length_data['magnitude'][i], 
                                   magnitude, rtol=1.e-9), msg
+            msg = 'Expected magnitude + one sigma value of %.10f, got %.10f' \
+                'for length %.1f' % \
+                (test_length_data['magnitude_plusone_sigma'][i], \
+                     magnitude_plusone_sigma,length)
+            assert numpy.allclose(test_length_data['magnitude_plusone_sigma'][i], 
+                                  magnitude_plusone_sigma, rtol=1.e-9), msg
+            msg = 'Expected magnitude - one sigma value of %.10f, got %.10f' \
+                'for length %.1f' % \
+                (test_length_data['magnitude_minusone_sigma'][i], \
+                     magnitude_minusone_sigma,length)
+            assert numpy.allclose(test_length_data['magnitude_minusone_sigma'][i], 
+                                  magnitude_minusone_sigma, rtol=1.e-9), msg
             i+=1
 
         i = 0
         for width in test_width_data['width']:
-            magnitude = calculate_magnitude('width', width)
+            magnitude, magnitude_plusone_sigma, magnitude_minusone_sigma = \
+                calculate_magnitude('width', width)
             msg = 'Expected magnitude value of %.10f, got %.10f for \
                    width %.1f' % (test_width_data['magnitude'][i], magnitude,
                                    width)
             assert numpy.allclose(test_width_data['magnitude'][i], 
                                   magnitude, rtol=1.e-9), msg
+            msg = 'Expected magnitude + one sigma value of %.10f, got %.10f ' \
+                'for width %.1f' % (test_width_data['magnitude_plusone_sigma'][i],\
+                                        magnitude_plusone_sigma,width)
+            assert numpy.allclose(test_width_data['magnitude_plusone_sigma'][i], 
+                                  magnitude_plusone_sigma, rtol=1.e-9), msg
+            msg = 'Expected magnitude - one sigma value of %.10f, got %.10f ' \
+                'for width %.1f' % (test_width_data['magnitude_minusone_sigma'][i],\
+                                        magnitude_minusone_sigma,width)
+            assert numpy.allclose(test_width_data['magnitude_minusone_sigma'][i], 
+                                  magnitude_minusone_sigma, rtol=1.e-9), msg
             i+=1
 
         i = 0
         for area in test_area_data['area']:
-            magnitude = calculate_magnitude('area', area)
+            magnitude, magnitude_plusone_sigma, magnitude_minusone_sigma  = \
+                calculate_magnitude('area', area)
             msg = 'Expected magnitude value of %.10f, got %.10f for \
                    area %.1f' % (test_area_data['magnitude'][i], magnitude,
                                    area)
             assert numpy.allclose(test_area_data['magnitude'][i], 
                                   magnitude, rtol=1.e-9), msg
+            msg = 'Expected magnitude + one sigma value of %.10f, got %.10f ' \
+                'for area %.1f' % (test_area_data['magnitude_plusone_sigma'][i], \
+                                       magnitude_plusone_sigma, area)
+            assert numpy.allclose(test_area_data['magnitude_plusone_sigma'][i], 
+                                  magnitude_plusone_sigma, rtol=1.e-9), msg
+            msg = 'Expected magnitude - one sigma value of %.10f, got %.10f ' \
+                'for area %.1f' % (test_area_data['magnitude_minusone_sigma'][i], \
+                                       magnitude_minusone_sigma, area)
+            assert numpy.allclose(test_area_data['magnitude_minusone_sigma'][i], 
+                                  magnitude_minusone_sigma, rtol=1.e-9), msg
             i+=1
 
 

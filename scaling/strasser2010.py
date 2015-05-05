@@ -63,10 +63,14 @@ def calculate_magnitude(dimension_type, dimension_value):
     coefficients = {'length': [4.868, 1.392],
                     'width': [4.410, 1.805],
                     'area': [4.441, 0.846]}
+    sigmas =  {'length': 0.277,
+                    'width': 0.392,
+                    'area': 0.286}
     magnitude = coefficients[dimension_type][0] + \
                     coefficients[dimension_type][1]*numpy.log10(dimension_value)
-
-    return magnitude
+    magnitude_plusone_sigma = magnitude + sigmas[dimension_type]
+    magnitude_minusone_sigma = magnitude - sigmas[dimension_type]
+    return magnitude, magnitude_plusone_sigma, magnitude_minusone_sigma
 
 if __name__ == "__main__":
     def usage():
@@ -81,13 +85,16 @@ if __name__ == "__main__":
         usage()
         sys.exit()
     if dimension_type == 'magnitude':
-        length, width, area = calculate_dimensions(dimension_value)
+        length, width, area, sigma_length_plusone, sigma_width_plusone, \
+            sigma_area_plusone, sigma_length_minusone, sigma_width_minusone, \
+            sigma_area_minusone = calculate_dimensions(dimension_value)
         print 'Length (km):', length
         print 'Width (km):', width
         print 'Area (km):', area
     elif dimension_type == 'length' or dimension_type == 'width' \
             or dimension_type == 'area':
-        magnitude = calculate_magnitude(dimension_type, dimension_value)
+        magnitude,magnitude_plusone_sigma, magnitude_minusone_sigma \
+            = calculate_magnitude(dimension_type, dimension_value)
         print 'Magnitude (Mw):', magnitude
     else:
         usage()
