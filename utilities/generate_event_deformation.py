@@ -407,6 +407,16 @@ def create_event_new(source_zone, magnitude,
     cmd = 'grdreformat ' + event_grd_path + ' ' + event_ascii_path + '=ef -V'
     print cmd
     call(cmd, shell=True)
+    # Convert to TIF
+    event_tif_path  = event_grd_path[:-3] + 'tif'
+    cmd = 'gdal_translate -of GTiff ' + event_grd_path + ' ' + event_tif_path 
+    print cmd
+    try:
+        call(cmd, shell=True)
+    except:
+        print 'Could not convert to tif using gdal_translate.'
+        print 'Check that gdal is installed correctly'
+
 
     ##########################################
     # Now plot the deformation
@@ -579,12 +589,22 @@ def create_event(source_zone, magnitude,
     event_grd_path = os.path.join(event_dir, event_grd_name)
     cmd = 'grdmath tmp_sum.grd ' + str(slip) + ' MUL = ' + event_grd_path
     print cmd
-    call(cmd, shell=True)
-    # Convert to ESRI ascii raster
+
+    # Convert to ESRI ascii raster                                 
     event_ascii_path = event_grd_path[:-3] + 'asc'
     cmd = 'grdreformat ' + event_grd_path + ' ' + event_ascii_path + '=ef -V'
     print cmd
     call(cmd, shell=True)
+
+    # Convert to TIF                                                                       
+    event_tif_path  = event_grd_path[:-3] + 'tif'
+    cmd = 'gdal_translate -of GTiff ' + event_grd_path + ' ' + event_tif_path
+    print cmd
+    try:
+        call(cmd, shell=True)
+    except:
+        print 'Could not convert to tif using gdal_translate.'
+        print 'Check that gdal is installed correctlycall(cmd, shell=True)'
 
     ##########################################
     # Now plot the deformation
