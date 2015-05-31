@@ -1,0 +1,11 @@
+#!/bin/bash
+#PBS -P n74
+#PBS -q normal
+#PBS -l walltime=5:00:00
+#PBS -lmem=8GB
+#PBS -lncpus=16
+#PBS -l wd
+
+# Next run ANUGA
+source ~/anuga_modules.sh
+mpirun -np 16 python run_model.py > outfile.log 

@@ -53,7 +53,7 @@ Run the unit tests with
 
 Bugs:
 ----
-Please use github pull requests to contribute bug fixes. Alternatively email Gareth Davies, grothered ( at gmail dot com), although we make no guarentees to maintain this software.
+Please use github pull requests to contribute bug fixes. Alternatively email Gareth Davies, gareth.davies.ga.code@gmail.com, although we make no guarentees to maintain this software.
 
 Issues: 
 --------

@@ -1,0 +1,67 @@
+"Author","Location","Date","Latitude (°N)","Longitude (°E)","Depth (km)","Flinn-Engdahl region","LEN","WID","Mw","Mo","STRK","DIP","RAKE","Htop","HypX","HypZ","avTr","avVr"
+"Hayes (NEIC, Offshore El Salvador 2012)","Offshore El Salvador","Aug 27, 2012",12.2596,-88.5224,19.86,"Off Coast Of Central America",210,128,7.3,1e+20,296,16,68.2497244643,5.52585057673,105,52,999,999
+"Wei (Caltech, Oaxaca 2012)","Oaxaca, Mexico","Mar 20, 2012",16.662,-98.187,20,"Near Coast Of Guerrero, Mexico",75,100,7.4,1.41e+20,283,13,84.7733333333,8.19007236414,37.5,52.5,999,999
+"Hayes (NEIC, Oaxaca 2012)","Oaxaca, Mexico","Mar 20, 2012",16.6478,-98.1829,19.74,"Near Coast Of Guerrero, Mexico",126,108,7.4,1.41e+20,297.04999,12.32,96.8661614021,6.3015857204,63,63,999,999
+"Hayes (NEIC, Kermadec Islands 2011)","Kermadec Islands","Oct 21, 2011",-28.9326,-176.0346,32.1,"Kermadec Islands Region",90,90,7.4,1.41e+20,196.08,48.43,69.2712168,2.92456314322,45,39,999,999
+"Hayes (NEIC, Vanuatu 2011)","Vanuatu","Aug 20, 2011",-18.2714,168.0602,31.43,"Vanuatu Islands",102,90,7.3,1e+20,353.14001,28.41,110.814929765,7.16436681161,51,51,999,999
+"Hayes (USGS, Kermadec Islands 2011)","Kermadec Islands","Jul 06, 2011",-29.2967,-176.1995,19.05,"Kermadec Islands Region",216,72,7.3,1e+20,169.64999,52.49,260.093114753,2.38995876211,108,21,999,999
+"Wei and Sladen (Caltech, Tohoku 2011)","Tohoku-Oki, Japan","Mar 11, 2011",38.0373,142.842,20.37,"Near East Coast Of Honshu, Japan",525,240,9,3.55e+22,201,9,86.3333333333,3.1664753496,262.5,110,999,999
+"Wei et al. (Caltech: Tohoku 2011)","Tohoku-Oki, Japan","Mar 11, 2011",38.1,142.8,21,"Near East Coast Of Honshu, Japan",625,280,9.12,6e+22,201,9,85,5.3566,312.5,110,999,999
+"Wei et al. (2012)","Tohoku-Oki, Japan","Mar 11, 2011",38.19,142.68,21,"Near East Coast Of Honshu, Japan",525,260,9.09,5.5e+22,201,10,90,2.7669,212.5,110,999,999
+"Shao et al. (2011)","Tohoku-Oki, Japan","Mar 11, 2011",38.322,142.369,24,"Near East Coast Of Honshu, Japan",500,200,9.1,5.01e+22,198,10,73.1346117,4.89871822333,212.5,110,999,999
+"Shao et al. (2011)","Tohoku-Oki, Japan","Mar 11, 2011",38.322,142.369,24,"Near East Coast Of Honshu, Japan",500,200,9.09,4.84e+22,198,10,71.33804505,4.89871822333,212.5,110,999,999
+"Shao et al. (2011)","Tohoku-Oki, Japan","Mar 11, 2011",38.1,142.86,23,"Near East Coast Of Honshu, Japan",475,200,9.1,5.01e+22,198,10,67.2760040526,7.37161822333,212.5,90,999,999
+"Shao et al. (2011)","Tohoku-Oki, Japan","Mar 11, 2011",38.1,142.86,23,"Near East Coast Of Honshu, Japan",475,200,9.1,5.01e+22,198,10,67.1829155789,7.37161822333,212.5,90,999,999
+"Ammon et al. (2011)","Tohoku-Oki, Japan","Mar 11, 2011",37.008,141.3395,30.64,"Near East Coast Of Honshu, Japan",600,210,9,3.55e+22,202,12,76.1964285714,-2.11863768113,187.5,127.5,999,999
+"Hayes (USGS, Tohoku 2011)","Tohoku-Oki, Japan","Mar 11, 2011",38.3509,142.4562,28.82,"Near East Coast Of Honshu, Japan",625,260,9.05,4.22e+22,194.42999,10.21,87.6526312308,5.7749348784,287.5,130,999,999
+"Lay et al. (2011)","Tohoku-Oki, Japan","Mar 11, 2011",38.147,142.915,17,"Near East Coast Of Honshu, Japan",380,200,9,3.55e+22,202,10,72,1.37161822333,170,90,999,999
+"Yamazaki et al. (2011)","Tohoku-Oki, Japan","Mar 11, 2011",38.107,142.916,18.34,"Near East Coast Of Honshu, Japan",340,200,9,3.55e+22,192,12,91.8087647059,-0.370316908178,190,110,999,999
+"Hayes (NEIC, Offshore Honshu 2011)","Offshore Honshu, Japan","Mar 09, 2011",38.4487,142.8574,20.72,"Near East Coast Of Honshu, Japan",126,126,7.3,1e+20,193,12.5,80.7058267857,6.11202173728,67.5,67.5,999,999
+"Hayes (NEIC, Southern Sumatra 2010)","Sumatra","Oct 25, 2010",-3.5003,100.0793,17.44,"Southern Sumatra, Indonesia",375,196,7.7,3.98e+20,325,11.62,101.462511571,1.92666108391,157.5,77,999,999
+"Hayes (NEIC, Northern Sumatra 2010)","Northern Sumatra","May 09, 2010",3.7137,96.0833,44.64,"Northern Sumatra, Indonesia",90,90,7.2,7.08e+19,305.41,17.52,75.9458249778,31.0919839264,45,45,999,999
+"Hayes (USGS, Northern Sumatra 2010)","Northern Sumatra","Apr 06, 2010",2.3384,97.1331,30.64,"Northern Sumatra, Indonesia",240,216,7.8,5.62e+20,312.70001,12.04,90.160152,9.36573290434,114,102,999,999
+"Sladen (Caltech, Maule 2010)","Maule, Chile","Feb 27, 2010",-35.846,-72.719,35,"Near Coast Of Central Chile",570,180,8.76,1.74e+22,18,18,112,9.7636,255,82.5,999,999
+"Hayes (NEIC, Maule 2010)","Maule, Chile","Feb 27, 2010",-35.8765,-72.7746,33.76,"Near Coast Of Central Chile",540,200,8.77,1.6e+22,17.5,18,109.777736111,-0.227969943749,255,110,999,999
+"Luttrell et al. (2011)","Maule, Chile","Feb 27, 2010",-36,-73,20.34,"Near Coast Of Central Chile",680,256.1,8.8,1.78e+22,16.8,15,180,0,335.81,78.57,999,999
+"Sladen (Caltech, Vanuatu 2009)","Vanuatu","Oct 07, 2009",-13.0642,166.19,35,"Vanuatu Islands",91,60,7.6,2.82e+20,346,40,59.7051282051,20.5372309758,24.5,22.5,999,999
+"Hayes (NEIC, Vanuatu 2009)","Vanuatu","Oct 07, 2009",-13.0675,166.1794,39.22,"Vanuatu Islands",200,160,7.8,5.62e+20,346,33,49.4168036563,3.82040482492,105,65,999,999
+"Hayes (NEIC, New Zealand 2009)","Fiordland, New Zealand","Jul 15, 2009",-45.7288,166.6181,24.15,"Off W. Coast Of S. Island, N.Z.",160,96,7.6,2.82e+20,27.11,32.27,139.937124,0.653761207595,84,44,999,999
+"Hayes (NEIC, Papua 2009)","Papua","Jan 03, 2009",-0.5021,132.773,34.6,"Irian Jaya Region, Indonesia",120,96,7.6,2.82e+20,98.1,27.87,53.755279875,7.95369896539,60,57,999,999
+"Sladen (Caltech, Sulawesi 2008)","Sulawesi, Indonesia","Nov 16, 2008",1.3001,122.103,25.5,"Minahassa Peninsula, Sulawesi",120,56,7.3,1e+20,93,22,88.1666666667,12.7638868132,52,34,2.4,2.4
+"Hayes (NEIC, New Zealand 2008)","Kermedac Islands, New Zealand","Sep 29, 2008",-29.8937,-177.7883,39.51,"Kermadec Islands, New Zealand",70,70,7,3.55e+19,197.3,29.56,91.8878569898,23.4732631893,32.5,32.5,999,999
+"Sladen (Caltech, Simeulue 2008)","Simeulue, Indonesia","Feb 20, 2008",2.7313,95.9707,24.81,"Off W Coast Of Northern Sumatra",152,112,7.4,1.41e+20,302,7,90.5187969925,19.4427526264,116,44,3,3
+"Hayes and Ji (Simeulue 2008)","Simeulue, Indonesia","Feb 20, 2008",2.7074,95.9661,23.55,"Off W Coast Of Northern Sumatra",120,170,7.4,1.41e+20,295.92001,7.55,63.784056201,15.3427216468,65,62.5,999,999
+"Sladen (Caltech, Tocopilla 2007)","Tocopilla, Chile","Nov 14, 2007",-22.1972,-69.853,49.66,"Northern Chile",162,126,7.7,3.98e+20,5,20,85.6825396825,17.337079355,130.5,94.5,1.6,1.6
+"Zeng et al. (Tocopilla 2007)","Tocopilla, Chile","Nov 14, 2007",-22.2194,-69.8169,39.43,"Northern Chile",200,150,7.7,3.98e+20,355.07999,16.56,92.4541183667,12.3531036877,135,95,999,999
+"Ji (UCSB, Tocopilla 2007)","Tocopilla, Chile","Nov 14, 2007",-22.2271,-69.8972,36.96,"Northern Chile",375,200,7.81,5.82e+20,355.07999,16.56,95.768826864,13.0182229501,172.5,84,999,999
+"Konca (Caltech, Benkulu 2007)","Benkulu,Indonesia","Sep 12, 2007",-4.5321,101.3918,30,"Southern Sumatra, Indonesia",450,208,8.4,4.47e+21,327,12,101.571428338,5.05059647346,153,120,999,999
+"Konca et al. (2008)","Benkulu,Indonesia","Sep 12, 2007",-4.5453,101.378,29.41,"Southern Sumatra, Indonesia",400,368,8.4,4.47e+21,324,15,94.48,2.49122763918,72,104,999,999
+"Ji (UCSB, Benkulu 2007)","Benkulu,Indonesia","Sep 12, 2007",-4.5469,101.3795,29.57,"Southern Sumatra, Indonesia",560,159.5,8.4,4.47e+21,323,12,110.164163929,9.97364024157,190,94.25,999,999
+"Sladen and Konca (Caltech, Pagai 2007)","Pagai,Indonesia","Sep 12, 2007",-2.5151,100.9139,45,"Southern Sumatra, Indonesia",240,110,7.9,7.94e+20,319,19,91.5863636364,27.0937492277,54,55,2.2,2.2
+"Konca et al. (2008)","Pagai,Indonesia","Sep 12, 2007",-2.7637,100.4982,34.71,"Southern Sumatra, Indonesia",240,190,7.9,7.94e+20,323,15,96.8684210526,7.53642477449,54,105,2.2,2.2
+"Ji and Zeng (Pagai 2007) )","Pagai,Indonesia","Sep 12, 2007",-2.7156,100.8011,44.64,"Southern Sumatra, Indonesia",312.5,90,7.9,7.94e+20,319,19,99.3998563556,29.9876592277,56.25,45,999,999
+"Konca (Caltech, Peru 2007)","Pisco, Peru","Aug 15, 2007",-13.0483,-76.5427,39,"Near Coast Of Peru",240,160,8,1.12e+21,324,27,60.9144739688,4.9507175013,198,75,999,999
+"Ji and Zeng (Peru 2007)","Pisco, Peru","Aug 15, 2007",-13.3758,-76.5213,29.42,"Near Coast Of Peru",192,108,8,1.12e+21,323.78,27,66.9171081771,2.85784275117,138,58.5,999,999
+"Ji (UCSB, Solomon Islands 2007)","Solomon Islands","Apr 01, 2007",-8.4878,156.9636,11.61,"Solomon Islands",300,80,8.1,1.58e+21,305,24.7,85.4481443125,1.16046463099,67.5,25,999,999
+"Ji (UCSB, Kuril 2006)","Kuril Islands","Nov 15, 2006",46.6216,153.2723,25.86,"Kuril Islands",400,137.5,8.3,3.16e+21,220.23,14.89,91.0756073182,4.97927422003,230,81.25,999,999
+"Ji (UCSB, JAVA 2006)","Java, Indonesia","Jul 17, 2006",-9.308,107.3598,14.72,"South Of Java, Indonesia",315,77,7.7,3.98e+20,288.94,10.35,94.4623159184,5.82446588274,232.5,49.5,999,999
+"Ji (Caltech, Sumatra 2005)","Sumatra","Mar 28, 2005",2.01,97.01,40,"Northern Sumatra, Indonesia",400,192,8.7,1.26e+22,325,15,98.2754968333,4.80060763918,270,136,999,999
+"Konca et al. (2007)","Sumatra","Mar 28, 2005",2.0455,97.0082,29.6,"Northern Sumatra, Indonesia",416,320,8.5,6.31e+21,325,10,90.0557692308,3.20856457866,264,152,999,999
+"Shao and Ji (UCSB, Sumatra 2005)","Sumatra","Mar 28, 2005",2.0623,97.1048,25.69,"Northern Sumatra, Indonesia",380,260,8.68,1.17e+22,326,8,117.187231053,7.5982689904,250,130,999,999
+"Yagi (2004)","Tokachi-oki (Japan)","Sep 25, 2003",41.78,144.08,27,"Hokkaido, Japan, region",130,170,8.16,1.92e+21,250,20,130,5,45,35,25,4.5
+"Koketsu et al. (2004)","Tokachi-oki (Japan)","Sep 25, 2003",41.7797,144.0785,25,"Hokkaido, Japan, region",120,100,8.21,2.36e+21,230,20,90,23.3,75,5,15,3.6
+"Yagi et al. (2004)","Colima (Mexico)","Jan 22, 2003",18.71,-104.13,20,"Near coast of Jalisco, Mexico",70,85,7.5,2.3e+20,300,22,93,12,32.5,27.5,13,3.5
+"Yagi et al. (1999)","Hyuga-nada2 (Japan)","Dec 02, 1996",31.803,131.588,20.4,"Kyushu, Japan",29.2,29.2,6.68,1.19e+19,210,12,80,0.01,19,19,4.8,2
+"Spence et al. (1999)","Nazca Ridge (Peru)","Nov 12, 1996",-14.99,-75.63,21,"Near coast of Peru",300,120,8.06,1.38e+21,312,33,52,1,150,38,10,3
+"Salichon et al. (2003)","Nazca Ridge (Peru)","Nov 12, 1996",-14.99,-75.63,21,"Near coast of Peru",180,120,7.84,6.57e+20,307,30,47,8,150,50,12.5,2.7
+"Yagi et al. (1999)","Hyuga-nada1 (Japan)","Oct 19, 1996",31.835,131.958,11.6,"Southeast of Shikoku, Japan",32.12,32.12,6.81,1.84e+19,210,12,80,0.01,13.12,10.22,6.4,2.2
+"Mendoza and Hartzell (1999)","Colima (Mexico)","Oct 09, 1995",18.864,-104.579,15,"Southeastcentral Pacific Ocean",200,100,7.96,9.67e+20,309,14,92,3,51.1,56,2,2.8
+"Nagai et al. (2001)","Sanrikuki (Japan)","Dec 28, 1994",40.43,143.75,10,"Off east coast of Honshu, Japan",110,140,7.7,3.99e+20,184,6,90,7.39,45,25,12,2.4
+"Mendoza and Hartzell (1989)","Michoacan (Mexico)","Sep 19, 1985",18.18,-102.57,17,"Michoacan, Mexico",180,139,8.01,1.15e+21,300,14,72,6,125,42,6,2.6
+"Mendoza (1993)","Playa Azul (Mexico)","Oct 25, 1981",17.742,-102.238,15,"Near coast of Michoacan, Mexico",60,70,7.25,8.49e+19,300,14,90,6,32.5,34.5,1,2.6
+"Mendoza (1995)","Petatlan (Mexico)","Mar 14, 1979",17.46,-101.46,15,"Near coast of Guerrero, Mexico",120,120,7.39,1.37e+20,293,14,90,2,61.7,53.7,10,3.3
+"Nagai et al. (2001)","Tokachi-oki (Japan)","May 16, 1968",40.73,143.58,9,"Off east coast of Honshu, Japan",240,120,8.35,3.76e+21,156,20,90,5.58,150,10,12,1.9
+"Yagi et al. (1998)","Hyuga-nada (Japan)","Apr 01, 1968",32.28,132.53,15,"Shikoku, Japan",72,63,7.53,2.22e+20,227,12,90,10.32,31.5,22.5,12,2.8
+"Ichinose et al. (2003)","Tonankai (Japan)","Dec 07, 1944",33.77,135.96,30,"Near south coast of western Honshu, Japan",220,140,8.04,1.31e+21,235,20,82,2,190,110,22.5,2.5
+"Wald and Somerville (1995)","Kanto (Japan)","Sep 01, 1923",35.4,139.2,14.6,"Near south coast of eastern Honshu, Japan",130,70,7.95,9.33e+20,290,25,138,2,105,29.8,8,3
+"Kobayashi and Koketsu (2005)","Kanto (Japan)","Sep 01, 1923",35.4,139.2,14.6,"Near south coast of eastern Honshu, Japan",130,70,8.08,1.46e+21,290,25,140,2,110.5,35,10.5,2.6

@@ -1,0 +1,15 @@
+#!/bin/bash
+#PBS -P n74
+#PBS -q normal
+#PBS -l walltime=6:00:00
+#PBS -lmem=8GB
+#PBS -lncpus=1
+#PBS -l wd
+
+# First run R code to smooth the deformation
+#module load R/3.0.2
+source ~/R_modules.sh
+Rscript RsmoothInitialDef.R > Routfile.log
+
+# Next run ANUGA
+qsub subANUGA.PBS
