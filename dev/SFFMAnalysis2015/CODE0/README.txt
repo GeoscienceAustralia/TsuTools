@@ -1,7 +1,7 @@
 ##############################################################################
 
 ./DATA 
-    contains key data -- see the readme there for more information
+    contains scripts to download / preprocess key data -- see the readme there for more information
 
 ./PACKAGES 
 
