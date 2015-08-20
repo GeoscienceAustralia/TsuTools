@@ -415,8 +415,12 @@ def create_event_new(source_zone, magnitude,
 
 
 def create_event(source_zone, magnitude,
-                 centroid_longitude, centroid_latitude):
+                 centroid_longitude, centroid_latitude,
+                 reduce_area=False):
     """Function that converts i_invall file to okada format
+    Param: reduce area
+        Uses mean - 1 sigma for area to increase slip locally
+        for more extreme local tsunami heights
     """
     # Read data
     filename = os.path.join(source_zone, 'i_invall-%s' % source_zone)
@@ -431,9 +435,15 @@ def create_event(source_zone, magnitude,
 
     # Caculate dimensions
     length, width, area, sigma_length_plus, sigma_width_plus, \
-        sigma_area_plus, simga_length_minus, sigma_width_minus, \
+        sigma_area_plus, sigma_length_minus, sigma_width_minus, \
         sigma_area_minus = strasser2010.calculate_dimensions(magnitude)
-
+    print 'area', area
+    if reduce_area is True:
+        print 'Reducing fault area by 1 sigma'
+        length = sigma_length_minus
+        width = sigma_width_minus
+        area = sigma_area_minus
+    print 'area', area
     # Get required subfault information
     subfault_length = numpy.mean(data[:, 7])
     subfault_width = numpy.mean(data[:, 8])
@@ -459,7 +469,10 @@ def create_event(source_zone, magnitude,
         numpy.round(
             (length / 2) / subfault_length))
     num_subfaults_half_width = int(numpy.round((width / 2) / subfault_width))
-    print 'Area - Strasser (km^2)', area
+    if reduce_area is True:
+        print 'Area - Strasser (km^2) at minus 1 sigma', area
+    else:
+        print 'Area - Strasser (km^2)', area
 
     # If fault is not wide enough for number of subfaults, we can try
     # adding extra subfaults in the along strike direction
@@ -521,11 +534,12 @@ def create_event(source_zone, magnitude,
     fault_area = (end_strike_index - start_strike_index) * subfault_length * \
         (end_dip_index - start_dip_index) * subfault_width
 
-    if fault_area > sigma_area_plus or fault_area < sigma_area_minus:
-        print 'Fault dimensions do not match scaling relationships for '\
-            'given magnitude %.2f' % magnitude
-        print 'Consider reducing the magnitude or the start index'
-        sys.exit()
+    if reduce_area is False:
+        if fault_area > sigma_area_plus or fault_area < sigma_area_minus:
+            print 'Fault dimensions do not match scaling relationships for '\
+                'given magnitude %.2f' % magnitude
+            print 'Consider reducing the magnitude or the start index'
+            sys.exit()
 
     # Calculate slip for actual fault area
     mu = 3e11  # dyne/cm assumed rigidity
@@ -573,9 +587,9 @@ def create_event(source_zone, magnitude,
         else:
             raise
     print magnitude, centroid_longitude, centroid_latitude
-    event_grd_name = '%s_Mw%.2f_%.3f_%.3f.grd=10' % (source_zone, magnitude,
+    event_grd_name = '%s_Mw%.2f_%.3f_%.3f_%.2fm.grd=10' % (source_zone, magnitude,
                                                   centroid_longitude,
-                                                  centroid_latitude)
+                                                  centroid_latitude, slip)
     event_grd_path = os.path.join(event_dir, event_grd_name)
     cmd = 'grdmath tmp_sum.grd ' + str(slip) + ' MUL = ' + event_grd_path
     print cmd
@@ -599,7 +613,7 @@ if __name__ == "__main__":
 
     def usage():
         print 'python generate_event_deformation.py <source_zone> <Mw> '\
-            '<centroid_longitude> <centroid_latitude>'
+            '<centroid_longitude> <centroid_latitude> <reduce_area=False>'
 
     try:
         filename = sys.argv[1]
@@ -614,5 +628,10 @@ if __name__ == "__main__":
         #start_index = 0
         usage()
         sys.exit()
-
-    create_event(filename, magnitude, centroid_longitude, centroid_latitude)
+    try:
+        reduce_area = sys.argv[5]
+    except:
+        reduce_area = False
+    print reduce_area
+    create_event(filename, magnitude, centroid_longitude, 
+                 centroid_latitude, reduce_area)
