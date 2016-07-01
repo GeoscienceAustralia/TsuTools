@@ -33,7 +33,7 @@ def slip2GR(slip_rate, A, b, M_max, M_min=0, mu=3e11):
     slip_fault = slip_rate/10  # convert to cm/a
     A = A*np.power(10,10) # convert to cm^2
     # Convert moment magnitude to moment for M_max
-    moment_max = np.power(10,(c*M_max + 16.1)) # dyn/cm = N/km
+    moment_max = np.power(10,(c*M_max + 16.05)) # dyn/cm = N/km
     
     # Calculate number of eqs > M_min
     N = (mu*A*(slip_fault)*(c-b)*(1-np.exp(-1*beta*(M_max-M_min))))/(b*moment_max*np.exp(-1*beta*(M_max-M_min)))
@@ -71,7 +71,7 @@ def GR2sliprate(a, b, A, M_max, M_min=0, mu=3e11):
     beta = 2.303*b
     A = A*np.power(10,10) # convert to cm^2
     # Convert moment magnitude to moment for M_max
-    moment_max = np.power(10,(c*M_max + 16.1)) # dyn/cm = N/km
+    moment_max = np.power(10,(c*M_max + 16.05)) # dyn/cm = N/km
     
     # Convert a to N, number of eqs > M_min
     N = np.power(10,a - b*M_min)
