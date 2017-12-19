@@ -284,14 +284,17 @@ def create_event_new(source_zone, magnitude,
     """
 
     # Read data
+    # Read data                                                                                   
     filename = os.path.join(source_zone, 'i_invall-%s' % source_zone)
     f_in = open(filename, 'r')
-    fault_name = f_in.readline()
-    msg = 'Source zone %s does not match name within i_invall '\
-        'file %s' % (source_zone, fault_name)
-
-    num_headers = int(f_in.readline())
-    f_in.close()
+    fault_name = f_in.readline().strip()
+    if source_zone != fault_name: # Assuming stripped down i_invall format (i.e. only subfaults)  
+        fault_name = source_zone
+        num_headers = -3
+        f_in.close()
+    else: # Full i_invall format                                                                  
+        num_headers = int(f_in.readline())
+        f_in.close()
     data = numpy.genfromtxt(filename, skip_header=(num_headers + 3))
 
     # Caculate dimensions from Strasser 2010 scaling relations theory
@@ -395,7 +398,7 @@ def create_event_new(source_zone, magnitude,
         else:
             raise
     print magnitude, centroid_longitude, centroid_latitude
-    event_grd_name = '%s_Mw%.2f_%.3f_%.3f.grd=10' % (source_zone, magnitude,
+    event_grd_name = '%s_Mw%.2f_%.3f_%.3f.grd' % (source_zone, magnitude,
                                                   centroid_longitude,
                                                   centroid_latitude)
     event_grd_path = os.path.join(event_dir, event_grd_name)
@@ -425,12 +428,17 @@ def create_event(source_zone, magnitude,
     # Read data
     filename = os.path.join(source_zone, 'i_invall-%s' % source_zone)
     f_in = open(filename, 'r')
-    fault_name = f_in.readline()
-    msg = 'Source zone %s does not match name within i_invall '\
-        'file %s' % (source_zone, fault_name)
-
-    num_headers = int(f_in.readline())
-    f_in.close()
+    fault_name = f_in.readline().strip()
+    if source_zone != fault_name: # Assuming stripped down i_invall format (i.e. only subfaults)
+        fault_name = source_zone
+        num_headers = -3
+        f_in.close()
+    else: # Full i_invall format
+        num_headers = int(f_in.readline())
+        f_in.close()
+    print num_headers
+    print source_zone
+    print fault_name
     data = numpy.genfromtxt(filename, skip_header=(num_headers + 3))
 
     # Caculate dimensions
@@ -489,32 +497,32 @@ def create_event(source_zone, magnitude,
     start_strike_index = int(max(0, centroid_strike_index -
                                  num_subfaults_half_length))
     if start_strike_index == 0:
-        remainder_subfaults = abs(centroid_strike_index -
-                                  num_subfaults_half_length)
+        remainder_subfaults = int(abs(centroid_strike_index -
+                                  num_subfaults_half_length))
     else:
         remainder_subfaults = 0
     end_strike_index = int(min(along_strike_number, centroid_strike_index +
                                num_subfaults_half_length +
                                remainder_subfaults))
     if end_strike_index == along_strike_number:
-        remainder_subfaults_strike = abs(
-            num_subfaults_half_length - (along_strike_number - centroid_strike_index))
+        remainder_subfaults_strike = int(abs(
+            num_subfaults_half_length - (along_strike_number - centroid_strike_index)))
     else:
         remainder_subfaults_strike = 0
 
     start_dip_index = int(
         max(0, centroid_dip_index - num_subfaults_half_width))
     if start_dip_index == 0:
-        remainder_subfaults = abs(centroid_dip_index -
-                                  num_subfaults_half_width)
+        remainder_subfaults = int(abs(centroid_dip_index -
+                                  num_subfaults_half_width))
     else:
         remainder_subfaults = 0
     end_dip_index = int(min(down_dip_number, centroid_dip_index +
                             num_subfaults_half_width +
                             remainder_subfaults))
     if end_dip_index == down_dip_number:
-        remainder_subfaults_dip = abs(num_subfaults_half_width -
-                                      (down_dip_number - centroid_dip_index))
+        remainder_subfaults_dip = int(abs(num_subfaults_half_width -
+                                      (down_dip_number - centroid_dip_index)))
     else:
         remainder_subfaults_dip = 0
 
@@ -587,7 +595,7 @@ def create_event(source_zone, magnitude,
         else:
             raise
     print magnitude, centroid_longitude, centroid_latitude
-    event_grd_name = '%s_Mw%.2f_%.3f_%.3f_%.2fm.grd=10' % (source_zone, magnitude,
+    event_grd_name = '%s_Mw%.2f_%.3f_%.3f_%.2fm.grd' % (source_zone, magnitude,
                                                   centroid_longitude,
                                                   centroid_latitude, slip)
     event_grd_path = os.path.join(event_dir, event_grd_name)
@@ -599,7 +607,15 @@ def create_event(source_zone, magnitude,
     cmd = 'grdreformat ' + event_grd_path + ' ' + event_ascii_path + '=ef -V'
     print cmd
     call(cmd, shell=True)
-
+    # Convert to GeoTiff raster                                                                                       
+    event_tif_path = event_grd_path[:-3] + 'tif'
+    cmd = 'gdal_translate -of GTiff ' + event_grd_path + ' ' +  event_tif_path
+    print cmd
+    try:
+        call(cmd, shell=True)
+    except:
+        print 'gdal_translate not available. Try: module load gdal'
+        print 'GeoTiff not made'
     ##########################################
     # Now plot the deformation
     #########################################
